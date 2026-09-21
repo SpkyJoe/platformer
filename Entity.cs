@@ -1,6 +1,8 @@
 using System.Numerics;
 using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
+using System.Collections.Generic;
 
 namespace platformer;
 
@@ -10,12 +12,6 @@ public class Entity
     protected readonly Sprite sprite;
     public bool Dead;
 
-    public Vector2f Position
-    {
-        get => sprite.Position;
-        set => sprite.Position = value;
-    }
-
     public virtual FloatRect Bounds => sprite.GetGlobalBounds(); 
     
     protected Entity(string textureName)
@@ -24,6 +20,12 @@ public class Entity
         sprite = new Sprite();
     }
 
+    public Vector2f Position
+    {
+        get => sprite.Position;
+        set => sprite.Position = value;
+    }
+    
     public virtual void Create(Scene scene)
     {
         sprite.Texture = scene.LoadTexture(textureName);
