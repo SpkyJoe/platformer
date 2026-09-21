@@ -9,22 +9,34 @@ public class Entity
     private readonly string textureName;
     protected readonly Sprite sprite;
     public bool Dead;
-    public Vector2f Position;
-    public readonly FloatRect Bounds;
 
-    protected Entity(string textureName)
+    public Vector2f Position
     {
-        Position = new Vector2f();
-        Bounds = new FloatRect();
+        get => sprite.Position;
+        set => sprite.Position = value;
     }
 
-    public void Create(Scene scene)
+    public virtual FloatRect Bounds => sprite.GetGlobalBounds(); 
+    
+    protected Entity(string textureName)
     {
+        this.textureName = textureName;
+        sprite = new Sprite();
+    }
 
+    public virtual void Create(Scene scene)
+    {
+        sprite.Texture = scene.LoadTexture(textureName);
     }
 
     public void Update(Scene scene, float Deltatime)
     {
 
     }
+
+    public virtual void Render(RenderTarget target)
+    {
+        target.Draw(sprite);
+    }
+    
 }

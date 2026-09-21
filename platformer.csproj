@@ -9,7 +9,9 @@
 
   <ItemGroup>
 	<None Remove="assets/*.txt" />
-	<EmbeddedResource Include="assets/*.txt">
+      <EmbeddedResource Include="assets/*.txt"/>
+      <EmbeddedResource Include="assets/*.png"/>
+      <EmbeddedResource Include="assets/*.tts">
 	<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</EmbeddedResource>
     <PackageReference Include="CSFML" Version="2.5.0" />

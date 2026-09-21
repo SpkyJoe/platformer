@@ -1,4 +1,7 @@
 using SFML.Graphics;
+using SFML.System;
+using SFML.Window;
+using System.Collections.Generic;
 
 namespace platformer;
 
@@ -52,9 +55,9 @@ public class Scene
 
     public void RenderAll(RenderTarget target)
     {
-        for (int i = entities.Count - 1; i >= 0; i--)
+        for (int i = 0; i <= entities.Count ; i++)
         {
-            ;
+            entities[i].Render(target);
         }
     }
 
