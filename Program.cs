@@ -38,6 +38,11 @@ namespace platformer
                     Position = new Vector2f(54,270)
                 });
                 
+                scene.Spawn(new Hero
+                {
+                    Position = new Vector2f(54,270)
+                });
+                
                 window.SetView(new View(
                     new Vector2f(200,150),
                     new Vector2f(400,300)
