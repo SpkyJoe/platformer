@@ -14,6 +14,7 @@ public class Scene
     private readonly List<Entity> entities;
     private string currentScene;
     private string nextScene;
+    
 
     public Scene()
     {
@@ -43,6 +44,8 @@ public class Scene
 
     public void UpdateAll(float deltaTime)
     {
+        
+        HandleSceneChange();
         for (int i = entities.Count - 1; i >= 0; i--)
         {
             Entity entity = entities[i];
@@ -66,6 +69,17 @@ public class Scene
         }
     }
 
+    public void Load(string level)
+    {
+        nextScene = level;
+
+    }
+
+    public void Reload()
+    {
+        nextScene = currentScene;
+    }
+
     private void HandleSceneChange()
     {
         if (nextScene == null) return;
@@ -74,24 +88,61 @@ public class Scene
 
         string file = $"assets/{nextScene}.txt";
         Console.WriteLine($"loading scene '{file}'");
-        
+
         // TODO Load scene from file
         foreach (var line in File.ReadLines(file, Encoding.UTF8))
         {
-            string parsed = line.Trim();
-            int commentAt = parsed.IndexOf('#');
-            if (commentAt >= 0)
+            if (line.Length != 0)
             {
-                parsed = parsed.Substring(0, commentAt);
-                parsed = parsed.Trim();
+                string parsed = line.Trim();
+                int commentAt = parsed.IndexOf('#');
+                Console.WriteLine(commentAt);
+                if (commentAt >= 0)
+                {
+                    parsed = parsed.Substring(0, commentAt);
+                    parsed = parsed.Trim();
+                }
 
                 string[] words = parsed.Split(" ");
+                if (words.Length >= 3)
+                {
+                    string entityType = words[0];
+                    float posX = float.Parse(words[1]);
+                    float posY = float.Parse(words[2]);
+                    switch (entityType)
+                    {
+                        case "w":
+                            Spawn(new Platform
+                            {
+                                Position = new Vector2f(posX, posY)
+                            });
+                            break;
+                        case "d":
+                            Spawn(new Door()
+                            {
+                                Position = new Vector2f(posX, posY)
+                            });
+                            break;
+                        case "k":
+                            Spawn(new Key()
+                            {
+                                Position = new Vector2f(posX, posY)
+                            });
+                            break;
+                        case "h":
+                            Spawn(new Hero()
+                            {
+                                Position = new Vector2f(posX, posY)
+                            });
+                            break;
+                    }
+
+                }
             }
+
+            currentScene = nextScene;
+            nextScene = null;
         }
-        
-        currentScene = nextScene;
-        nextScene = null;
-        
     }
 
     public bool TryMove(Entity entity, Vector2f movement)
