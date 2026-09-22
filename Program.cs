@@ -52,6 +52,7 @@ namespace platformer
                 while (window.IsOpen)
                 {
                     float deltaTime = clock.Restart().AsSeconds();
+                    if(deltaTime > 0.1f) deltaTime = 0.1f;
                     window.DispatchEvents();
                     scene.UpdateAll(deltaTime);
                     

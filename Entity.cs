@@ -3,6 +3,7 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using System.Collections.Generic;
+using Platformer;
 
 namespace platformer;
 
@@ -11,6 +12,7 @@ public class Entity
     private readonly string textureName;
     protected readonly Sprite sprite;
     public bool Dead;
+    public virtual bool Solid => false;
 
     public virtual FloatRect Bounds => sprite.GetGlobalBounds(); 
     
