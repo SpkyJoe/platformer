@@ -461,19 +461,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\William Lundblad\\.nuget\\packages\\": {}
+    "C:\\Users\\bebbe\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\William Lundblad\\Desktop\\platformer\\platformer.csproj",
+      "projectUniqueName": "C:\\Users\\bebbe\\Documents\\GitHub\\platformer\\platformer.csproj",
       "projectName": "platformer",
-      "projectPath": "C:\\Users\\William Lundblad\\Desktop\\platformer\\platformer.csproj",
-      "packagesPath": "C:\\Users\\William Lundblad\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\William Lundblad\\Desktop\\platformer\\obj\\",
+      "projectPath": "C:\\Users\\bebbe\\Documents\\GitHub\\platformer\\platformer.csproj",
+      "packagesPath": "C:\\Users\\bebbe\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\bebbe\\Documents\\GitHub\\platformer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\William Lundblad\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\bebbe\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"

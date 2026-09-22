@@ -32,5 +32,9 @@ public class Hero : Entity
         
     }
     
-    
+    public override void Render(RenderTarget target)
+    {
+        sprite.Scale = new Vector2f(faceRight ? -1 : 1, 1);
+        base.Render(target);
+    }
 }
