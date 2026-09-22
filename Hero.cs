@@ -22,7 +22,7 @@ public class Hero : Entity
         sprite.Origin = new Vector2f(12, 12);
     }
 
-    public override void Update(Scene scene, float deltaTime)
+    public override void Update(Scene scene, float deltaTime) //Keyboard Input Left/Right/Up(Jump)
     {
         if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
         {
@@ -38,7 +38,7 @@ public class Hero : Entity
 
         if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
         {
-            if (isGrounded && !isUpPressed)
+            if (isGrounded && !isUpPressed) //Triggar Jump en gång trots att man trycker fler ggr på Up.
             {
                 VerticalSpeed -= JumpForce;
                 isUpPressed = true;
@@ -49,12 +49,12 @@ public class Hero : Entity
             isUpPressed = false;
         }
         VerticalSpeed += GravityForce * deltaTime;
-        if (VerticalSpeed > 500.0f) VerticalSpeed = 500.0f;
+        if (VerticalSpeed > 500.0f) VerticalSpeed = 500.0f; //Limit på hur snabb VerticalSpeed kan bli
         isGrounded = false;
         Vector2f velocity = new Vector2f(0, VerticalSpeed * deltaTime);
         if (scene.TryMove(this, velocity))
         {
-            if (VerticalSpeed > 0.0f)
+            if (VerticalSpeed > 0.0f) //Känner av om momentum vertikalt = 0 == är på marken
             {
                 isGrounded = true;
             }
@@ -64,7 +64,7 @@ public class Hero : Entity
     
     public override void Render(RenderTarget target)
     {
-        sprite.Scale = new Vector2f(faceRight ? -1 : 1, 1);
+        sprite.Scale = new Vector2f(faceRight ? -1 : 1, 1); // <Condition(faceright)> ? <case true(-1)>:<case false(1)>
         base.Render(target);
     }
 }
