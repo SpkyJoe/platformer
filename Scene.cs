@@ -110,7 +110,6 @@ public class Scene
             {
                 string parsed = line.Trim();
                 int commentAt = parsed.IndexOf('#'); //Om det finns # innan tecken, räknas det som 0, annars -1, som går vidare.
-                Console.WriteLine(commentAt);
                 if (commentAt >= 0) // känner av om det är en "kommentar" kännetecknat av # pga värdet som gavs innan. Trimmar allt efter detta till "icke-arraybart",
                 {
                     parsed = parsed.Substring(0, commentAt);
