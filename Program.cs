@@ -13,6 +13,7 @@ namespace platformer
                 window.Closed += (o, e) => window.Close();
                 Clock clock = new Clock();
                 Scene scene = new Scene();
+<<<<<<< Updated upstream
                 scene.Load("level0");
                 
                 window.SetView(new View(
@@ -20,6 +21,13 @@ namespace platformer
                     new Vector2f(400,300)
                     ));
                 
+=======
+
+                scene.Load("level0");
+                
+                
+               
+>>>>>>> Stashed changes
                 
                 while (window.IsOpen)
                 {

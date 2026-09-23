@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Platformer;
 using System.IO;
+using System.Net.Security;
 
 namespace platformer;
 
@@ -44,8 +45,12 @@ public class Scene
 
     public void UpdateAll(float deltaTime)
     {
+<<<<<<< Updated upstream
         
         HandleSceneChange();
+=======
+        HandleSceneChange(nextScene);
+>>>>>>> Stashed changes
         for (int i = entities.Count - 1; i >= 0; i--)
         {
             Entity entity = entities[i];
@@ -58,6 +63,7 @@ public class Scene
             if (entity.Dead) entities.RemoveAt(i);
             else i++;
         }
+        
         
     }
 
@@ -72,20 +78,29 @@ public class Scene
     public void Load(string level)
     {
         nextScene = level;
+<<<<<<< Updated upstream
 
     }
 
     public void Reload()
+=======
+    }
+
+    public void Reload(string level)
+>>>>>>> Stashed changes
     {
         nextScene = currentScene;
     }
 
+<<<<<<< Updated upstream
     private void HandleSceneChange()
+=======
+    private void HandleSceneChange(string level)
+>>>>>>> Stashed changes
     {
         if (nextScene == null) return;
         entities.Clear();
         Spawn(new Background());
-
         string file = $"assets/{nextScene}.txt";
         Console.WriteLine($"loading scene '{file}'");
 
@@ -94,6 +109,7 @@ public class Scene
         {
             if (line.Length != 0)
             {
+<<<<<<< Updated upstream
                 string parsed = line.Trim();
                 int commentAt = parsed.IndexOf('#');
                 Console.WriteLine(commentAt);
@@ -137,12 +153,66 @@ public class Scene
                             break;
                     }
 
+=======
+                parsed = parsed.Substring(0, commentAt);
+                parsed = parsed.Trim();
+                switch (parsed.Length == 0)
+                {
+                    case true:
+                        continue;
+                }
+                string[] words = parsed.Split(" ");
+                string name = words[0];
+                int posx = int.Parse(words[1]);
+                int posy = int.Parse(words[2]);
+                switch (name == "d")
+                {
+                    case true:
+                        string dname = words[3];
+                        break;
+                    case false:
+                        nextScene = words[3];
+                        break;
+                }
+                
+                switch (name)
+                {
+                    case "w" : 
+                        Spawn(new Platform()
+                        {
+                            Position = new Vector2f(posx, posy)
+                        });
+                        continue;
+                    case "d":
+                        Spawn(new Door()
+                        {
+                            Position = new Vector2f(posx, posy)
+                        });
+                        continue;
+                    case "k":
+                        Spawn(new Key()
+                        {
+                            Position = new Vector2f(posx, posy)
+                        });
+                        continue;
+                    case "h":
+                        Spawn(new Hero()
+                        {
+                            Position = new Vector2f(posx, posy)
+                        });
+                        continue;
+>>>>>>> Stashed changes
                 }
             }
 
             currentScene = nextScene;
             nextScene = null;
         }
+<<<<<<< Updated upstream
+=======
+        currentScene = nextScene;
+        nextScene = null;
+>>>>>>> Stashed changes
     }
 
     public bool TryMove(Entity entity, Vector2f movement)
