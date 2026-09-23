@@ -26,7 +26,7 @@ public class Scene
     {
         foreach (Entity entity in entities)
         {
-            //TODO: Loop throught list for instance T
+            
             if (!entity.Dead && entity is T typed)
             {
                 found = typed;
