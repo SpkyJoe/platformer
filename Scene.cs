@@ -15,18 +15,32 @@ public class Scene
     private string currentScene;
     private string nextScene;
     
-
+    
     public Scene()
     {
         textures = new Dictionary<string, Texture>();
         entities = new List<Entity>();
     }
 
+    public bool FindByType<T>(out T found) where T : Entity
+    {
+        foreach (Entity entity in entities)
+        {
+            //TODO: Loop throught list for instance T
+            if (!entity.Dead && entity is T typed)
+            {
+                found = typed;
+                return true;
+            }
+        }
+        found = default(T);
+        return false;
+    }
+
     public void Spawn(Entity entity) //"Spawnar" en instans av den Entity som kallas, väldigt lätt att skapa kopior på koordinater
     {
         entities.Add(entity);
         entity.Create(this);
-        
     }
     
     public Texture LoadTexture(string name) //Testar att hämta textur, som funktion i Entity. Som sedan constructorn i subklasserna kan ange filen där texturen hämtas från.
@@ -35,7 +49,6 @@ public class Scene
         {
             return found;
         }
-
         string fileName = $"assets/{name}.png";
         Texture texture = new Texture(fileName);
         textures.Add(name, texture);
@@ -44,12 +57,12 @@ public class Scene
 
     public void UpdateAll(float deltaTime)
     {
-        
         HandleSceneChange(); // byter bana det första som händer vid ett framebyte
         for (int i = entities.Count - 1; i >= 0; i--)
         {
             Entity entity = entities[i];
             entity.Update(this, deltaTime);
+            
         }
 
         for (int i = 0; i < entities.Count;)
@@ -72,7 +85,6 @@ public class Scene
     public void Load(string level) //Initierar bl.a "level0" så det finns en nivå att rendera när spelet startas.
     {
         nextScene = level;
-
     }
 
     public void Reload() // Kommer göra att om Hero åker utanför skärmen, kommer leveln spelas om.
@@ -85,13 +97,15 @@ public class Scene
         if (nextScene == null) return; //om nextScene inte har något värde kommer inget hända, och funktionen hoppas över.
         entities.Clear();
         Spawn(new Background());
-
+       
+        
         string file = $"assets/{nextScene}.txt";
         Console.WriteLine($"loading scene '{file}'");
 
         // TODO Load scene from file
         foreach (var line in File.ReadLines(file, Encoding.UTF8)) //Läser av alla rader i .txt filer som ges in.
         {
+           
             if (line.Length != 0) //Hoppar över nya rader som inte har någon värdeindex (dvs blank rad)
             {
                 string parsed = line.Trim();
@@ -109,6 +123,7 @@ public class Scene
                     string entityType = words[0];
                     float posX = float.Parse(words[1]);
                     float posY = float.Parse(words[2]);
+                    
                     switch (entityType) // Läser av den splittade raden där den bestämmer typ av entity, och lägger en position för denna med hjälp av de nästkommande värderna.
                     {
                         case "w":
@@ -120,7 +135,8 @@ public class Scene
                         case "d":
                             Spawn(new Door()
                             {
-                                Position = new Vector2f(posX, posY)
+                                Position = new Vector2f(posX, posY),
+                                NextRoom = words[3]
                             });
                             break;
                         case "k":
@@ -139,10 +155,10 @@ public class Scene
 
                 }
             }
-
-            currentScene = nextScene; //uppdaterar currentScene som samma värde som nextScene
-            nextScene = null; //Uppdaterar nextScene som inget nytt värde (null) 
+            
         }
+        currentScene = nextScene; //uppdaterar currentScene som samma värde som nextScene
+        nextScene = null; //Uppdaterar nextScene som inget nytt värde (null)
     }
 
     public bool TryMove(Entity entity, Vector2f movement)

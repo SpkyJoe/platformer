@@ -1,5 +1,10 @@
 using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
+using System.Collections.Generic;
+using System.Text;
+using Platformer;
+using System.IO;
 
 namespace platformer;
 

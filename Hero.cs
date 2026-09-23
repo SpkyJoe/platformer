@@ -2,6 +2,10 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using System.Collections.Generic;
+using System.Text;
+using Platformer;
+using System.IO;
+using System.Reflection.Metadata.Ecma335;
 
 namespace platformer;
 
@@ -14,13 +18,20 @@ public class Hero : Entity
     private float VerticalSpeed;
     private bool isGrounded;
     private bool isUpPressed;
+    private bool outOfBounds;
+    
 
     
     public Hero() : base("characters")
     {
         sprite.TextureRect = new IntRect(0, 0, 24, 24);
         sprite.Origin = new Vector2f(12, 12);
+        sprite.Position = new Vector2f();
+        outOfBounds = false;
     }
+
+   
+    
 
     public override void Update(Scene scene, float deltaTime) //Keyboard Input Left/Right/Up(Jump)
     {
@@ -60,6 +71,24 @@ public class Hero : Entity
             }
             VerticalSpeed = 0.0f;
         }
+
+        switch (sprite.Position.Y > 18.0f && sprite.Position.Y < 288.0f && sprite.Position.X > 18.0f && sprite.Position.X < 378.0f)
+        {
+            case true:
+                outOfBounds = false;
+                break;
+            case false:
+                outOfBounds = true;
+                break;
+        }
+
+        if (outOfBounds)
+        {
+            scene.Reload();
+            Dead=true;
+        }
+       
+            
     }
     
     public override void Render(RenderTarget target)
