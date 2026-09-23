@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Text;
 using Platformer;
 using System.IO;
-using System.Net.Security;
 
 namespace platformer;
 
@@ -45,8 +44,8 @@ public class Scene
 
     public void UpdateAll(float deltaTime)
     {
+        
         HandleSceneChange(); // byter bana det första som händer vid ett framebyte
-
         for (int i = entities.Count - 1; i >= 0; i--)
         {
             Entity entity = entities[i];
@@ -59,7 +58,6 @@ public class Scene
             if (entity.Dead) entities.RemoveAt(i);
             else i++;
         }
-        
         
     }
 
@@ -74,8 +72,8 @@ public class Scene
     public void Load(string level) //Initierar bl.a "level0" så det finns en nivå att rendera när spelet startas.
     {
         nextScene = level;
-    }
 
+    }
 
     public void Reload() // Kommer göra att om Hero åker utanför skärmen, kommer leveln spelas om.
     {
@@ -87,6 +85,7 @@ public class Scene
         if (nextScene == null) return; //om nextScene inte har något värde kommer inget hända, och funktionen hoppas över.
         entities.Clear();
         Spawn(new Background());
+
         string file = $"assets/{nextScene}.txt";
         Console.WriteLine($"loading scene '{file}'");
 
@@ -138,62 +137,12 @@ public class Scene
                             break;
                     }
 
-                parsed = parsed.Substring(0, commentAt);
-                parsed = parsed.Trim();
-                switch (parsed.Length == 0)
-                {
-                    case true:
-                        continue;
-                }
-                string[] words = parsed.Split(" ");
-                string name = words[0];
-                int posx = int.Parse(words[1]);
-                int posy = int.Parse(words[2]);
-                switch (name == "d")
-                {
-                    case true:
-                        string dname = words[3];
-                        break;
-                    case false:
-                        nextScene = words[3];
-                        break;
-                }
-                
-                switch (name)
-                {
-                    case "w" : 
-                        Spawn(new Platform()
-                        {
-                            Position = new Vector2f(posx, posy)
-                        });
-                        continue;
-                    case "d":
-                        Spawn(new Door()
-                        {
-                            Position = new Vector2f(posx, posy)
-                        });
-                        continue;
-                    case "k":
-                        Spawn(new Key()
-                        {
-                            Position = new Vector2f(posx, posy)
-                        });
-                        continue;
-                    case "h":
-                        Spawn(new Hero()
-                        {
-                            Position = new Vector2f(posx, posy)
-                        });
-                        continue;
                 }
             }
 
             currentScene = nextScene; //uppdaterar currentScene som samma värde som nextScene
             nextScene = null; //Uppdaterar nextScene som inget nytt värde (null) 
         }
-
-        currentScene = nextScene;
-        nextScene = null;
     }
 
     public bool TryMove(Entity entity, Vector2f movement)
@@ -216,5 +165,4 @@ public class Scene
         }
         return collided;
     }
-
 }
