@@ -45,16 +45,8 @@ public class Scene
 
     public void UpdateAll(float deltaTime)
     {
-<<<<<<< Updated upstream
-        
-<<<<<<< HEAD
-        HandleSceneChange();
-=======
-        HandleSceneChange(nextScene);
->>>>>>> Stashed changes
-=======
         HandleSceneChange(); // byter bana det första som händer vid ett framebyte
->>>>>>> 32953c5bd82b9071865664228f2660d4faa46e45
+
         for (int i = entities.Count - 1; i >= 0; i--)
         {
             Entity entity = entities[i];
@@ -82,29 +74,15 @@ public class Scene
     public void Load(string level) //Initierar bl.a "level0" så det finns en nivå att rendera när spelet startas.
     {
         nextScene = level;
-<<<<<<< Updated upstream
-
     }
 
-<<<<<<< HEAD
-    public void Reload()
-=======
-    }
 
-    public void Reload(string level)
->>>>>>> Stashed changes
-=======
     public void Reload() // Kommer göra att om Hero åker utanför skärmen, kommer leveln spelas om.
->>>>>>> 32953c5bd82b9071865664228f2660d4faa46e45
     {
         nextScene = currentScene;
     }
 
-<<<<<<< Updated upstream
     private void HandleSceneChange()
-=======
-    private void HandleSceneChange(string level)
->>>>>>> Stashed changes
     {
         if (nextScene == null) return; //om nextScene inte har något värde kommer inget hända, och funktionen hoppas över.
         entities.Clear();
@@ -117,7 +95,6 @@ public class Scene
         {
             if (line.Length != 0) //Hoppar över nya rader som inte har någon värdeindex (dvs blank rad)
             {
-<<<<<<< Updated upstream
                 string parsed = line.Trim();
                 int commentAt = parsed.IndexOf('#'); //Om det finns # innan tecken, räknas det som 0, annars -1, som går vidare.
                 Console.WriteLine(commentAt);
@@ -161,7 +138,6 @@ public class Scene
                             break;
                     }
 
-=======
                 parsed = parsed.Substring(0, commentAt);
                 parsed = parsed.Trim();
                 switch (parsed.Length == 0)
@@ -209,18 +185,15 @@ public class Scene
                             Position = new Vector2f(posx, posy)
                         });
                         continue;
->>>>>>> Stashed changes
                 }
             }
 
             currentScene = nextScene; //uppdaterar currentScene som samma värde som nextScene
             nextScene = null; //Uppdaterar nextScene som inget nytt värde (null) 
         }
-<<<<<<< Updated upstream
-=======
+
         currentScene = nextScene;
         nextScene = null;
->>>>>>> Stashed changes
     }
 
     public bool TryMove(Entity entity, Vector2f movement)
