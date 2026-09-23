@@ -23,14 +23,14 @@ public class Scene
         entities = new List<Entity>();
     }
 
-    public void Spawn(Entity entity)
+    public void Spawn(Entity entity) //"Spawnar" en instans av den Entity som kallas, väldigt lätt att skapa kopior på koordinater
     {
         entities.Add(entity);
         entity.Create(this);
         
     }
     
-    public Texture LoadTexture(string name)
+    public Texture LoadTexture(string name) //Testar att hämta textur, som funktion i Entity. Som sedan constructorn i subklasserna kan ange filen där texturen hämtas från.
     {
         if (textures.TryGetValue(name, out Texture found))
         {
@@ -47,10 +47,14 @@ public class Scene
     {
 <<<<<<< Updated upstream
         
+<<<<<<< HEAD
         HandleSceneChange();
 =======
         HandleSceneChange(nextScene);
 >>>>>>> Stashed changes
+=======
+        HandleSceneChange(); // byter bana det första som händer vid ett framebyte
+>>>>>>> 32953c5bd82b9071865664228f2660d4faa46e45
         for (int i = entities.Count - 1; i >= 0; i--)
         {
             Entity entity = entities[i];
@@ -67,7 +71,7 @@ public class Scene
         
     }
 
-    public void RenderAll(RenderTarget target)
+    public void RenderAll(RenderTarget target) //Renderar alla entities som är spawnade och som finns i listan, dvs allt som inte är "Dead"
     {
         for (int i = 0; i < entities.Count ; i++)
         {
@@ -75,19 +79,23 @@ public class Scene
         }
     }
 
-    public void Load(string level)
+    public void Load(string level) //Initierar bl.a "level0" så det finns en nivå att rendera när spelet startas.
     {
         nextScene = level;
 <<<<<<< Updated upstream
 
     }
 
+<<<<<<< HEAD
     public void Reload()
 =======
     }
 
     public void Reload(string level)
 >>>>>>> Stashed changes
+=======
+    public void Reload() // Kommer göra att om Hero åker utanför skärmen, kommer leveln spelas om.
+>>>>>>> 32953c5bd82b9071865664228f2660d4faa46e45
     {
         nextScene = currentScene;
     }
@@ -98,34 +106,34 @@ public class Scene
     private void HandleSceneChange(string level)
 >>>>>>> Stashed changes
     {
-        if (nextScene == null) return;
+        if (nextScene == null) return; //om nextScene inte har något värde kommer inget hända, och funktionen hoppas över.
         entities.Clear();
         Spawn(new Background());
         string file = $"assets/{nextScene}.txt";
         Console.WriteLine($"loading scene '{file}'");
 
         // TODO Load scene from file
-        foreach (var line in File.ReadLines(file, Encoding.UTF8))
+        foreach (var line in File.ReadLines(file, Encoding.UTF8)) //Läser av alla rader i .txt filer som ges in.
         {
-            if (line.Length != 0)
+            if (line.Length != 0) //Hoppar över nya rader som inte har någon värdeindex (dvs blank rad)
             {
 <<<<<<< Updated upstream
                 string parsed = line.Trim();
-                int commentAt = parsed.IndexOf('#');
+                int commentAt = parsed.IndexOf('#'); //Om det finns # innan tecken, räknas det som 0, annars -1, som går vidare.
                 Console.WriteLine(commentAt);
-                if (commentAt >= 0)
+                if (commentAt >= 0) // känner av om det är en "kommentar" kännetecknat av # pga värdet som gavs innan. Trimmar allt efter detta till "icke-arraybart",
                 {
                     parsed = parsed.Substring(0, commentAt);
                     parsed = parsed.Trim();
                 }
 
-                string[] words = parsed.Split(" ");
-                if (words.Length >= 3)
+                string[] words = parsed.Split(" "); // Splittar upp raden till lika många index i en array där mellanrum finns.
+                if (words.Length >= 3) //Kollar om antalet Index i Arrayen är lika med elr högre än 3, så inte programmet krashar pga att det inte finns värden som går att tyda.
                 {
                     string entityType = words[0];
                     float posX = float.Parse(words[1]);
                     float posY = float.Parse(words[2]);
-                    switch (entityType)
+                    switch (entityType) // Läser av den splittade raden där den bestämmer typ av entity, och lägger en position för denna med hjälp av de nästkommande värderna.
                     {
                         case "w":
                             Spawn(new Platform
@@ -205,8 +213,8 @@ public class Scene
                 }
             }
 
-            currentScene = nextScene;
-            nextScene = null;
+            currentScene = nextScene; //uppdaterar currentScene som samma värde som nextScene
+            nextScene = null; //Uppdaterar nextScene som inget nytt värde (null) 
         }
 <<<<<<< Updated upstream
 =======
@@ -226,7 +234,7 @@ public class Scene
          if (other == entity) continue;
          FloatRect boundsA = entity.Bounds;
          FloatRect boundsB = other.Bounds;
-         if (Collision.RectangleRectangle(boundsA, boundsB, out Collision.Hit hit))
+         if (Collision.RectangleRectangle(boundsA, boundsB, out Collision.Hit hit)) // Kontrollerar om Boundsen på spritsen överlappar/kolliderar. Uppdaterar position att inta gå längre.
          {
              entity.Position += hit.Normal * hit.Overlap;
              i = -1;
