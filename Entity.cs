@@ -14,6 +14,7 @@ public class Entity
     protected readonly Sprite sprite;
     public bool Dead;
     public virtual bool Solid => false;
+    public virtual bool Breakable => false;
 
     public virtual FloatRect Bounds => sprite.GetGlobalBounds(); 
     
@@ -28,13 +29,19 @@ public class Entity
         get => sprite.Position;
         set => sprite.Position = value;
     }
+
+    public virtual void BreakCheck(Scene scene)
+    {
+        
+    }
+    
     
     public virtual void Create(Scene scene)
     {
         sprite.Texture = scene.LoadTexture(textureName);
     }
 
-    public virtual void Update(Scene scene, float Deltatime)
+    public virtual void Update(Scene scene, float deltatime)
     {
 
     }

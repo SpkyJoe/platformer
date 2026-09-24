@@ -10,7 +10,7 @@ namespace platformer
         
         static void Main(string[] args)
         {
-            Directory.SetCurrentDirectory(AppContext.BaseDirectory); 
+            Directory.SetCurrentDirectory(AppContext.BaseDirectory);
             
             using (var window = new RenderWindow(new VideoMode(800, 600), "Platformer"))
             {

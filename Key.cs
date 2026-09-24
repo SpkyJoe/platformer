@@ -11,8 +11,8 @@ namespace platformer;
 
 public class Key : Entity
 {
-    static public SoundBuffer sound = new SoundBuffer("assets/accept.wav");
-    static public Sound key = new Sound(sound);
+    static private SoundBuffer sound = new SoundBuffer("assets/accept.wav");
+    static private Sound key = new Sound(sound);
     
     public Key() : base("tileset")
     {
@@ -20,7 +20,7 @@ public class Key : Entity
         sprite.Origin = new Vector2f(9, 9);
     }
 
-    public override void Update(Scene scene, float DeltaTime)
+    public override void Update(Scene scene, float deltaTime)
     {
         if (scene.FindByType<Hero>(out Hero foundHero))
         {

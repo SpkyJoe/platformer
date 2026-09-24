@@ -151,6 +151,12 @@ public class Scene
                                 Position = new Vector2f(posX, posY)
                             });
                             break;
+                        case "b" :
+                            Spawn(new BreakablePlat()
+                            {
+                                Position = new Vector2f(posX, posY)
+                            });
+                            break;
                     }
 
                 }
@@ -174,6 +180,10 @@ public class Scene
          FloatRect boundsB = other.Bounds;
          if (Collision.RectangleRectangle(boundsA, boundsB, out Collision.Hit hit)) // Kontrollerar om Boundsen på spritsen överlappar/kolliderar. Uppdaterar position att inta gå längre.
          {
+             if (other.Breakable)
+             {
+                 other.BreakCheck(this);
+             }
              entity.Position += hit.Normal * hit.Overlap;
              i = -1;
              collided = true;
