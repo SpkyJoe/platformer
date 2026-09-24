@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Platformer;
 using System.IO;
+using SFML.Audio;
 
 namespace platformer;
 
@@ -12,6 +13,8 @@ public class Door : Entity
 {
    public string NextRoom;
    public bool Unlocked;
+   static public SoundBuffer door = new SoundBuffer("assets/1up1.wav");
+   static public Sound next = new Sound(door);
    public Door() : base("tileset")
    {
       sprite.TextureRect = new IntRect(180, 103, 18, 23);
@@ -28,6 +31,7 @@ public class Door : Entity
             if(Unlocked == true)
             {
                scene.Load(NextRoom);
+               next.Play();
                Unlocked = false;
             }
          }

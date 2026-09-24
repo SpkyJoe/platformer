@@ -1,13 +1,17 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using SFML.Audio;
 
 namespace platformer
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
+            Directory.SetCurrentDirectory(AppContext.BaseDirectory); 
+            
             using (var window = new RenderWindow(new VideoMode(800, 600), "Platformer"))
             {
                 window.Closed += (o, e) => window.Close();

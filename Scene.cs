@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Platformer;
 using System.IO;
+using SFML.Audio;
 
 namespace platformer;
 
@@ -14,7 +15,8 @@ public class Scene
     private readonly List<Entity> entities;
     private string currentScene;
     private string nextScene;
-    
+    static public SoundBuffer mosic = new SoundBuffer("assets/mosic.wav");
+    static public Sound sound = new Sound(mosic);
     
     public Scene()
     {
@@ -97,8 +99,7 @@ public class Scene
         if (nextScene == null) return; //om nextScene inte har något värde kommer inget hända, och funktionen hoppas över.
         entities.Clear();
         Spawn(new Background());
-       
-        
+         sound.Play();
         string file = $"assets/{nextScene}.txt";
         Console.WriteLine($"loading scene '{file}'");
 

@@ -6,6 +6,7 @@ using System.Text;
 using Platformer;
 using System.IO;
 using System.Reflection.Metadata.Ecma335;
+using SFML.Audio;
 
 namespace platformer;
 
@@ -23,6 +24,8 @@ public class Hero : Entity
     private Clock animationClock = new Clock();
     private float animationTimer;
     private bool firstFrame;
+    private static SoundBuffer jump = new SoundBuffer("assets/jump3.wav");
+    private static Sound jamp = new Sound(jump);
     
 
     
@@ -74,6 +77,7 @@ public class Hero : Entity
         {
             if (isGrounded && !isUpPressed) //Triggar Jump en gång trots att man trycker fler ggr på Up.
             {
+                jamp.Play();
                 VerticalSpeed -= JumpForce;
                 isUpPressed = true;
             }

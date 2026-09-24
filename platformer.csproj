@@ -26,6 +26,14 @@
     </EmbeddedResource>
   </ItemGroup>
 
+<ItemGroup>
+    <None Remove="assets/*.wav" />
+    <EmbeddedResource Include="assets/*.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+
   <ItemGroup>
     <None Remove="assets/*.ttf" />
     <EmbeddedResource Include="assets/*.ttf">

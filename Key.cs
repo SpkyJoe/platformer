@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using System.Text;
 using Platformer;
 using System.IO;
+using SFML.Audio;
 
 namespace platformer;
 
 public class Key : Entity
 {
+    static public SoundBuffer sound = new SoundBuffer("assets/accept.wav");
+    static public Sound key = new Sound(sound);
     
     public Key() : base("tileset")
     {
@@ -24,11 +27,13 @@ public class Key : Entity
             if (Collision.RectangleRectangle(Bounds, foundHero.Bounds, out _))
             {
                 Dead = true;   
+                
                 scene.FindByType<Door>(out Door foundDoor);
                 do
                 {
                     if (foundDoor != null)
                     {
+                        key.Play();
                         foundDoor.Unlocked = true;
                     }
                 } while (!foundDoor.Unlocked);
