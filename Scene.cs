@@ -157,6 +157,12 @@ public class Scene
                                 Position = new Vector2f(posX, posY)
                             });
                             break;
+                        case "c" :
+                            Spawn(new Coin()
+                            {
+                                Position = new Vector2f(posX, posY)
+                            });
+                            break;
                     }
 
                 }

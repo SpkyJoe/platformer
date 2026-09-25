@@ -47,8 +47,5 @@ public class Door : Entity
       
    }
 
-   public void Render(RenderTarget target)
-   {
-      target.Draw(sprite);
-   }
+  
 }
