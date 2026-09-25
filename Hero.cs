@@ -26,9 +26,7 @@ public class Hero : Entity
     private bool firstFrame;
     private static SoundBuffer jump = new SoundBuffer("assets/jump3.wav");
     private static Sound jamp = new Sound(jump);
-    public int coinsCollected;
-    public Text gui;
-    public bool guiRender = false;
+   
     
     
     public Hero() : base("characters")
@@ -37,10 +35,7 @@ public class Hero : Entity
         sprite.Origin = new Vector2f(12, 12);
         sprite.Position = new Vector2f();
         outOfBounds = false;
-        gui = new Text();
-        gui.CharacterSize = 12;
-        gui.Font = new Font("assets/future.ttf");
-        gui.Color = Color.Black;
+       
     }
 
     public override FloatRect Bounds
@@ -124,10 +119,6 @@ public class Hero : Entity
             scene.Reload();
             Dead=true;
         }
-
-        
-       
-            
     }
     
     public override void Render(RenderTarget target)
@@ -148,13 +139,6 @@ public class Hero : Entity
                 firstFrame = false;
             }
         }
-        if (guiRender == false)
-        {
-            gui.DisplayedString = $"Coins: {coinsCollected}";
-            gui.Position = new Vector2f(30, 30);
-            target.Draw(gui);
-        }
-        
         sprite.Scale = new Vector2f(faceRight ? -1 : 1, 1); // <Condition(faceright)> ? <case true(-1)>:<case false(1)>
         base.Render(target);
 

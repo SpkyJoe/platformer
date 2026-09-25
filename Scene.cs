@@ -17,11 +17,17 @@ public class Scene
     private string nextScene;
     static public SoundBuffer mosic = new SoundBuffer("assets/mosic.wav");
     static public Sound sound = new Sound(mosic);
+    public int coinsCollected;
+    public Text sceneGui;
     
     public Scene()
     {
         textures = new Dictionary<string, Texture>();
         entities = new List<Entity>();
+        sceneGui = new Text();
+        sceneGui.CharacterSize = 12;
+        sceneGui.Font = new Font("assets/future.ttf");
+        sceneGui.Color = Color.Black;
     }
 
     public bool FindByType<T>(out T found) where T : Entity
@@ -82,6 +88,9 @@ public class Scene
         {
             entities[i].Render(target);
         }
+        sceneGui.DisplayedString = $"Coins: {coinsCollected}";
+        sceneGui.Position = new Vector2f(30, 30);
+        target.Draw(sceneGui);
     }
 
     public void Load(string level) //Initierar bl.a "level0" så det finns en nivå att rendera när spelet startas.
@@ -92,6 +101,7 @@ public class Scene
     public void Reload() // Kommer göra att om Hero åker utanför skärmen, kommer leveln spelas om.
     {
         nextScene = currentScene;
+        coinsCollected = 0;
     }
 
     private void HandleSceneChange()
@@ -99,7 +109,11 @@ public class Scene
         if (nextScene == null) return; //om nextScene inte har något värde kommer inget hända, och funktionen hoppas över.
         entities.Clear();
         Spawn(new Background());
-         sound.Play();
+        if (!sound.Loop)
+        {
+            sound.Play();
+            sound.Loop = true;
+        }
         string file = $"assets/{nextScene}.txt";
         Console.WriteLine($"loading scene '{file}'");
 

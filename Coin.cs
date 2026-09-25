@@ -11,6 +11,9 @@ namespace platformer;
 
 public class Coin : Entity
 {
+    static private SoundBuffer sound = new SoundBuffer("assets/coin.wav");
+    static private Sound coin = new Sound(sound);
+    
     public Coin() : base("tileset")
     {
         sprite.TextureRect = new IntRect(198, 128, 18, 18);
@@ -23,9 +26,12 @@ public class Coin : Entity
         {
             if (Collision.RectangleRectangle(Bounds, foundHero.Bounds, out _))
             {
+                coin.Play();
                 Dead = true;
-                foundHero.coinsCollected++;
+                scene.coinsCollected++;
+                
             }
         }
     }
+    
 }
