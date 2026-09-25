@@ -10,7 +10,7 @@ public class BreakablePlat : Platform
 
     public override bool Solid => true;
     public override bool Breakable => true;
-    static private SoundBuffer sound = new SoundBuffer("assets/random.wav");
+    static private SoundBuffer sound = new SoundBuffer("assets/break.wav");
     static private Sound trasig = new Sound(sound);
 
     public BreakablePlat()
